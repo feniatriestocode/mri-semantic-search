@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vectordb"
+version = "0.1.0"
+description = "High-dimensional vector search with PostgreSQL and pgvector for image embeddings"
+readme = "README.md"
+requires-python = ">=3.10"
+
+# Main runtime dependencies
+dependencies = [
+    "psycopg2-binary>=2.9.9",
+    "pgvector>=0.2.5",
+    "torch>=2.0.0",
+    "torchvision>=0.15.0",
+    "sentence-transformers>=2.2.2",
+    "pillow>=10.0.0",
+    "numpy>=1.24.0",
+    "pandas>=2.0.0",
+    "matplotlib>=3.7.0",
+    "tqdm>=4.65.0",
+    "open-clip-torch>=2.20.0",
+]
+
+# Optional development tools (e.g., Jupyter notebooks, linting)
+[project.optional-dependencies]
+dev = [
+    "jupyterlab>=4.0.0",
+    "ipywidgets>=8.0.0",
+]
+
+# Tell setuptools where your Python package code lives
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
