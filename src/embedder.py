@@ -13,10 +13,26 @@ class BiomedClipEmbedder:
     def __init__(self, device: str = None):
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
         # Load BiomedCLIP, its tokenizer, and preprocessing transforms
-        self.model, _, self.preprocess = open_clip.create_model_and_transforms(MODEL_NAME)
+        self.model, _ , self.preprocess = open_clip.create_model_and_transforms(MODEL_NAME)
         self.tokenizer = open_clip.get_tokenizer(MODEL_NAME)
         self.model.to(self.device)
         self.model.eval()
+
+    def embed_batch(self, image_paths: list[str]) -> list[list[float]]:
+        """Batch image embedding."""
+        tensors = []
+        for p in image_paths:
+            img = Image.open(p).convert("RGB")
+            tensors.append(self.preprocess(img))
+
+        batch_tensor = torch.stack(tensors).to(self.device) 
+
+        with torch.no_grad():
+            features = self.model.encode_image(batch_tensor)
+            features /= features.norm(dim=-1, keepdim=True)
+
+        return features.cpu().numpy().tolist()
+
 
     def embed_image(self, image_path: str) -> list[float]:
         """Image to 512-dimensional embedding."""
