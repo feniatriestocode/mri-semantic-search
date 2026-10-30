@@ -181,8 +181,8 @@ These are local-development defaults. Change them before exposing the database a
 - [x] Database schema and Docker setup
 - [x] BiomedCLIP embedder (image, batch and text)
 - [x] Batch ingestion pipeline
-- [ ] Vector index (HNSW / IVFFlat) in `sql/create_index.sql`
-- [ ] Reusable search queries in `sql/queries.sql`
+- [x] Vector index (HNSW / IVFFlat) in `sql/create_index.sql`
+- [x] Reusable search queries in `sql/queries.sql`
 - [ ] Benchmarking (recall and latency, exact vs. indexed search) in `src/benchmark.py`
 - [ ] Search interface / demo notebook
 
